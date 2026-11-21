@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Angren–Toshkent Taxi</title>
+<style>
+:root{--bg:#f6f4ec;--card:rgba(255,255,255,.75);--tx:#16140c;--mut:#6d6a5c;--y:#ffc400;--y2:#ff9f00;--bd:rgba(0,0,0,.08);--inp:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0c0b07;--card:rgba(255,255,255,.06);--tx:#fff8e1;--mut:#a9a48c;--bd:rgba(255,196,0,.18);--inp:rgba(255,255,255,.07);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0c0b07;--card:rgba(255,255,255,.06);--tx:#fff8e1;--mut:#a9a48c;--bd:rgba(255,196,0,.18);--inp:rgba(255,255,255,.07);color-scheme:dark}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;min-height:100vh;background:var(--bg);color:var(--tx);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;overflow-x:hidden;position:relative}
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.bg i{position:absolute;border-radius:50%;filter:blur(70px);opacity:.55}
+.bg i:nth-child(1){width:320px;height:320px;background:var(--y);top:-90px;right:-80px;animation:f 12s ease-in-out infinite alternate}
+.bg i:nth-child(2){width:260px;height:260px;background:var(--y2);bottom:-60px;left:-90px;opacity:.35;animation:f 15s ease-in-out infinite alternate-reverse}
+.bg:after{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--bd) 1px,transparent 1px),linear-gradient(90deg,var(--bd) 1px,transparent 1px);background-size:44px 44px;mask-image:radial-gradient(circle at 50% 20%,#000,transparent 70%);-webkit-mask-image:radial-gradient(circle at 50% 20%,#000,transparent 70%)}
+@keyframes f{to{transform:translate(40px,50px) scale(1.15)}}
+main{position:relative;z-index:1;max-width:480px;margin:0 auto;padding:18px 16px 40px}
+header{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.logo{width:46px;height:46px;border-radius:14px;background:linear-gradient(135deg,var(--y),var(--y2));display:grid;place-items:center;font-size:24px;box-shadow:0 8px 24px rgba(255,170,0,.4)}
+h1{font-size:20px;margin:0;font-weight:800;letter-spacing:-.3px}
+header p{margin:2px 0 0;font-size:12.5px;color:var(--mut)}
+.tabs{display:grid;grid-template-columns:1fr 1fr 1.1fr;background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:4px;margin-bottom:14px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.tabs button{border:0;background:none;color:var(--mut);font:600 14px inherit;font-family:inherit;padding:11px;border-radius:12px;cursor:pointer;transition:.25s}
+.tabs button.on{background:linear-gradient(135deg,var(--y),var(--y2));color:#1a1400;box-shadow:0 6px 18px rgba(255,170,0,.35)}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:22px;padding:16px;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 10px 40px rgba(0,0,0,.12)}
+.route{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.city{flex:1;background:var(--inp);border:1px solid var(--bd);border-radius:14px;padding:10px 12px}
+.city small{display:block;font-size:11px;color:var(--mut)}
+.city b{font-size:17px}
+.swap{width:42px;height:42px;border-radius:50%;border:0;background:var(--y);color:#1a1400;font-size:18px;cursor:pointer;transition:transform .35s;box-shadow:0 6px 16px rgba(255,170,0,.45)}
+.swap.r{transform:rotate(180deg)}
+label{display:block;font-size:12px;color:var(--mut);margin:12px 0 5px;font-weight:600}
+input,textarea{width:100%;background:var(--inp);border:1px solid var(--bd);color:var(--tx);border-radius:14px;padding:13px;font:500 15px inherit;font-family:inherit;outline:none;transition:.2s}
+input:focus,textarea:focus{border-color:var(--y);box-shadow:0 0 0 3px rgba(255,196,0,.25)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.seats{display:flex;gap:8px}
+.seats button{flex:1;padding:12px 0;border-radius:12px;border:1px solid var(--bd);background:var(--inp);color:var(--tx);font:700 15px inherit;font-family:inherit;cursor:pointer}
+.seats button.on{background:var(--y);color:#1a1400;border-color:var(--y)}
+.cta{width:100%;margin-top:18px;border:0;border-radius:16px;padding:16px;font:800 16px inherit;font-family:inherit;color:#1a1400;background:linear-gradient(135deg,var(--y),var(--y2));cursor:pointer;box-shadow:0 10px 28px rgba(255,170,0,.45);transition:transform .15s}
+.cta:active{transform:scale(.97)}
+.hint{font-size:12px;color:var(--mut);margin:10px 2px 0;text-align:center}
+.ord{margin-bottom:12px;animation:in .4s both}
+@keyframes in{from{opacity:0;transform:translateY(10px)}}
+.top{display:flex;justify-content:space-between;align-items:center}
+.top b{font-size:16px}
+.price{background:var(--y);color:#1a1400;font-weight:800;font-size:13px;padding:5px 10px;border-radius:99px}
+.meta{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0;font-size:12.5px;color:var(--mut)}
+.meta span{background:var(--inp);border:1px solid var(--bd);padding:4px 9px;border-radius:99px}
+.acts{display:flex;gap:8px}
+.acts a,.acts button{flex:1;text-align:center;text-decoration:none;border:0;border-radius:12px;padding:11px;font:700 13.5px inherit;font-family:inherit;cursor:pointer}
+.take{background:var(--y);color:#1a1400}.call{background:var(--inp);color:var(--tx);border:1px solid var(--bd)!important}
+.empty{text-align:center;color:var(--mut);padding:36px 10px;font-size:14px}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,120px);background:#1a1400;color:var(--y);padding:12px 18px;border-radius:14px;font-weight:700;font-size:14px;transition:.35s;z-index:9;border:1px solid var(--y)}
+.toast.s{transform:translate(-50%,0)}
+:root{--sky:rgba(40,30,0,.10);--road:rgba(0,0,0,.12)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--sky:rgba(255,196,0,.10);--road:rgba(255,255,255,.06)}}
+:root[data-theme="dark"]{--sky:rgba(255,196,0,.10);--road:rgba(255,255,255,.06)}
+.bg i:nth-child(3){width:200px;height:200px;background:#ffdd57;top:42%;left:55%;opacity:.22;animation:f 18s ease-in-out infinite alternate}
+.stars{position:absolute;inset:0;background-image:radial-gradient(2px 2px at 20% 15%,var(--y),transparent),radial-gradient(1.5px 1.5px at 70% 25%,var(--y),transparent),radial-gradient(2px 2px at 40% 55%,var(--y),transparent),radial-gradient(1.5px 1.5px at 85% 68%,var(--y),transparent),radial-gradient(1.5px 1.5px at 10% 78%,var(--y),transparent),radial-gradient(2px 2px at 92% 12%,var(--y),transparent);animation:tw 4s ease-in-out infinite alternate;opacity:.7}
+@keyframes tw{to{opacity:.15}}
+.city{position:absolute;left:0;bottom:46px;width:100%;height:150px;fill:var(--sky)}
+.road{position:absolute;left:0;right:0;bottom:0;height:46px;background:var(--road);border-top:2px solid var(--y)}
+.road span{position:absolute;top:21px;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--y) 50%,transparent 50%);background-size:56px 4px;animation:rd 1s linear infinite}
+@keyframes rd{to{background-position:-56px 0}}
+.car{position:absolute;bottom:20px;font-size:30px;transform:scaleX(-1);filter:drop-shadow(0 0 12px rgba(255,196,0,.7));animation:drive 9s linear infinite}
+@keyframes drive{from{left:-60px}to{left:105%}}
+.locbtn{width:100%;border:1.5px dashed var(--y);background:rgba(255,196,0,.1);color:var(--tx);border-radius:14px;padding:13px;font:700 14.5px inherit;font-family:inherit;cursor:pointer}
+.locbtn.ok{border-style:solid;background:var(--y);color:#1a1400}
+.locbox{display:block;padding:12px;border:1px solid var(--bd);border-radius:18px;margin-top:16px;background:rgba(255,196,0,.06)}.locbox label{margin-top:0}.locbtn{display:block}.cta{margin-top:26px!important;display:block}main{padding-bottom:100px!important}.locinfo{margin-top:8px;font-size:12.5px;color:var(--mut)}
+.locinfo a{color:var(--y2);font-weight:700}
+h1{background:linear-gradient(90deg,var(--tx),var(--y) 60%,var(--y2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-size:22px}
+.logo{animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 10px rgba(255,196,0,0),0 8px 34px rgba(255,170,0,.75)}}
+.card{border-radius:26px;border-top-color:rgba(255,196,0,.45);box-shadow:0 18px 50px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.12)}
+.cta{position:relative;overflow:hidden}
+.cta:after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);animation:sh 3s ease-in-out infinite}
+@keyframes sh{to{left:130%}}
+.wal{background:linear-gradient(135deg,#ffd43b,#ff9f00 70%,#ff7a00);color:#1a1400;border:0;position:relative;overflow:hidden}
+.wal:before{content:"";position:absolute;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.3);right:-50px;top:-60px}
+.wal small{font-weight:700;opacity:.75}.bal{font-size:34px;font-weight:900;letter-spacing:-1px;margin:4px 0}.fee{margin:0;font-size:13px}
+.cardno{background:var(--inp);border:1px dashed var(--y);border-radius:14px;padding:13px;font:800 17px ui-monospace,monospace;letter-spacing:1px;text-align:center}
+.hide{display:none}
+</style>
+</head>
+<body>
+<div class="bg"><i></i><i></i><i></i><div class="stars"></div><svg class="city" viewBox="0 0 400 150" preserveAspectRatio="none"><path d="M0 150V90h20V60h24v30h14V40h26v50h18V70h22v20h16V30h28v60h20V75h24v15h18V50h26v40h20V65h22v25h24V45h30v45h20V80h26v70z"/><g fill="#ffc400" opacity=".5"><rect x="102" y="48" width="4" height="4"/><rect x="110" y="60" width="4" height="4"/><rect x="195" y="42" width="4" height="4"/><rect x="203" y="58" width="4" height="4"/><rect x="302" y="58" width="4" height="4"/><rect x="28" y="72" width="4" height="4"/><rect x="352" y="62" width="4" height="4"/></g></svg><div class="road"><span></span></div><div class="car">🚕</div></div>
+<main>
+<header><div class="logo">🚕</div><div><h1>Angren ⇄ Toshkent</h1><p>Tez va qulay taksi buyurtmasi</p></div></header>
+<div class="tabs"><button id="t1" class="on">Yo‘lovchi</button><button id="t2">Haydovchi</button><button id="t3">💰 Hamyon</button></div>
+
+<section id="p1" class="card">
+<div class="route"><div class="city"><small>Qayerdan</small><b id="from">Angren</b></div><button class="swap" id="swap" aria-label="Almashtirish">⇄</button><div class="city"><small>Qayerga</small><b id="to">Toshkent</b></div></div>
+<label>Ismingiz</label><input id="name" placeholder="Masalan: Aziz">
+<label>Telefon</label><input id="phone" type="tel" placeholder="+998 90 123 45 67">
+<div class="row"><div><label>Sana</label><input id="date" type="date"></div><div><label>Vaqt</label><input id="time" type="time"></div></div>
+<label>Yo‘lovchilar soni</label><div class="seats" id="seats"><button class="on">1</button><button>2</button><button>3</button><button>4</button></div>
+<label>Narx (so‘m)</label><input id="price" type="number" inputmode="numeric" value="50000">
+<label>Manzil / izoh</label><textarea id="note" rows="2" placeholder="Qaysi ko‘cha, mo‘ljal..."></textarea>
+<div class="locbox"><label>Lokatsiya</label><button type="button" class="locbtn" id="loc">📍 Joylashuvimni biriktirish</button><div id="locinfo" class="locinfo hide"></div><input id="link" style="margin-top:10px" placeholder="yoki xarita havolasini joylang"></div><button class="cta" id="send">Taksi buyurtma qilish</button>
+<p class="hint">Buyurtma haydovchilar Telegram guruhiga yuboriladi</p>
+</section>
+
+<section id="p2" class="hide"><div id="list"></div></section>
+<section id="p3" class="hide"><div class="card wal"><small>Haydovchi hisobi</small><div class="bal" id="bal">0</div><p class="fee">Har bir yo‘lovchi uchun <b>2 500 so‘m</b> yechiladi</p></div><div class="card" style="margin-top:12px"><label style="margin-top:0">Hisobni to‘ldirish</label><div class="seats" id="amts"><button data-a="10000">10k</button><button data-a="25000">25k</button><button data-a="50000">50k</button><button data-a="100000">100k</button></div><label>Karta raqami</label><div class="cardno" id="cardno"></div><label>To‘lov izohiga yozing</label><div class="cardno" id="paycode"></div><button class="cta" id="chk">To‘lovni tekshirish</button><p class="hint">⚠️ Demo rejim: haqiqiy avto-tekshiruv uchun server va Payme/Click kerak</p></div><div class="hint" id="earn"></div></section>
+</main>
+<div class="toast" id="toast"></div>
+<script>
+var DRIVER_GROUP = ""; // haydovchilar guruhi: masalan "https://t.me/angren_toshkent_taxi"
+var dir=0,seats=1,orders=[];
+var $=function(i){return document.getElementById(i)};
+function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(k));localStorage.setItem(k,JSON.stringify(v))}catch(e){return null}}
+orders=store("orders")||[
+ {from:"Angren",to:"Toshkent",name:"Jasur",phone:"+998901234567",date:"Bugun",time:"18:30",seats:2,price:60000,note:"Angren vokzal yonidan"},
+ {from:"Toshkent",to:"Angren",name:"Madina",phone:"+998935556677",date:"Ertaga",time:"08:00",seats:1,price:50000,note:"Chilonzor metro"}];
+var d=new Date();$("date").value=d.toISOString().slice(0,10);
+function toast(t){var e=$("toast");e.textContent=t;e.classList.add("s");setTimeout(function(){e.classList.remove("s")},2600)}
+function tab(n){$("p1").classList.toggle("hide",n!=1);$("p2").classList.toggle("hide",n!=2);$("t1").classList.toggle("on",n==1);$("t2").classList.toggle("on",n==2);$("p3").classList.toggle("hide",n!=3);$("t3").classList.toggle("on",n==3);if(n==2)render();if(n==3)wallet()}
+$("t1").onclick=function(){tab(1)};$("t2").onclick=function(){tab(2)};$("t3").onclick=function(){tab(3)};
+$("swap").onclick=function(){dir=1-dir;$("swap").classList.toggle("r");var a=$("from").textContent;$("from").textContent=$("to").textContent;$("to").textContent=a};
+$("seats").onclick=function(e){if(e.target.tagName!="BUTTON")return;[].forEach.call($("seats").children,function(b){b.classList.remove("on")});e.target.classList.add("on");seats=+e.target.textContent};
+function text(o){return "🚕 YANGI BUYURTMA\n📍 "+o.from+" → "+o.to+"\n📅 "+o.date+" "+o.time+"\n👥 "+o.seats+" kishi\n💰 "+Number(o.price).toLocaleString("uz")+" so‘m\n👤 "+o.name+"\n📞 "+o.phone+(o.note?"\n📝 "+o.note:"")+(mapUrl(o)?"\n🗺 "+mapUrl(o):"")}
+var loc=null;
+function mapUrl(o){return o.loc?"https://www.google.com/maps?q="+o.loc.lat+","+o.loc.lng:(o.map||"")}
+function mapBtn(o){var u=mapUrl(o);return /^https?:\/\//.test(u)?'<a class="call" target="_blank" rel="noopener" href="'+esc(u)+'">🗺 Xarita</a>':''}
+$("loc").onclick=function(){
+ if(!navigator.geolocation){toast("Lokatsiya qo‘llab-quvvatlanmaydi");return}
+ $("loc").textContent="Aniqlanmoqda...";
+ navigator.geolocation.getCurrentPosition(function(p){
+  loc={lat:p.coords.latitude.toFixed(5),lng:p.coords.longitude.toFixed(5)};
+  $("loc").textContent="✅ Lokatsiya biriktirildi";$("loc").classList.add("ok");
+  $("locinfo").innerHTML=loc.lat+", "+loc.lng+" · <a target=\"_blank\" rel=\"noopener\" href=\""+mapUrl({loc:loc})+"\">Xaritada ko‘rish</a>";$("locinfo").classList.remove("hide");
+ },function(){$("loc").textContent="📍 Joylashuvimni biriktirish";$("locinfo").innerHTML='GPS ruxsat berilmadi. <a target="_blank" rel="noopener" href="https://www.google.com/maps">Xaritada joyingizni belgilang</a>, «Ulashish» havolasini nusxalab, pastdagi maydonga joylang.';$("locinfo").classList.remove("hide");$("link").focus();toast("Havolani qo‘lda joylang")},{enableHighAccuracy:true,timeout:10000});
+};
+var FEE=2500,CARD="8600 1234 5678 9012",bal=store("bal")||0,earn=store("earn")||0,amt=25000,code="TX-"+Math.floor(10000+Math.random()*90000);
+function fm(n){return Number(n).toLocaleString("uz").replace(/,/g," ")+" so‘m"}
+function wallet(){$("bal").textContent=fm(bal);$("cardno").textContent=CARD;$("paycode").textContent=code;$("earn").textContent="Platforma daromadi (demo): "+fm(earn);[].forEach.call($("amts").children,function(b){b.classList.toggle("on",+b.dataset.a==amt)})}
+$("amts").onclick=function(e){if(e.target.dataset.a){amt=+e.target.dataset.a;wallet()}};
+$("chk").onclick=function(){$("chk").textContent="Tekshirilmoqda...";setTimeout(function(){bal+=amt;store("bal",bal);$("chk").textContent="To‘lovni tekshirish";wallet();toast("+"+fm(amt)+" hisobga tushdi (demo)")},1800)};
+function takeOrder(i){var o=orders[i],c=FEE*o.seats;if(!o||o.taken)return;if(bal<c){toast("Balans yetarli emas. Hisobni to‘ldiring");tab(3);return}bal-=c;earn+=c;o.taken=true;store("bal",bal);store("earn",earn);store("orders",orders);toast("Olindi: −"+fm(c));render()}
+function render2(){var h="";orders.forEach(function(o,i){var c=FEE*o.seats;h+='<div class="card ord"><div class="top"><b>'+esc(o.from)+' → '+esc(o.to)+'</b><span class="price">'+Number(o.price).toLocaleString("uz")+'</span></div><div class="meta"><span>📅 '+esc(o.date)+'</span><span>🕒 '+esc(o.time)+'</span><span>👥 '+o.seats+'</span><span>👤 '+esc(o.name)+'</span></div>'+(o.note?'<div class="meta">📝 '+esc(o.note)+'</div>':'')+(o.taken?'<div class="acts">'+mapBtn(o)+'<a class="call" href="tel:'+esc(o.phone)+'">📞 '+esc(o.phone)+'</a></div>':'<div class="acts"><button class="take" data-i="'+i+'">Olaman · −'+fm(c)+'</button></div>')+'</div>'});$("list").innerHTML=h||'<div class="empty">Hozircha buyurtmalar yo‘q</div>'}
+$("send").onclick=function(){
+ var o={from:$("from").textContent,to:$("to").textContent,name:$("name").value.trim(),phone:$("phone").value.trim(),date:$("date").value,time:$("time").value,seats:seats,price:$("price").value,note:$("note").value.trim(),loc:loc,map:$("link").value.trim()};
+ if(!o.name||o.phone.length<9||!o.time){toast("Ism, telefon va vaqtni kiriting");return}
+ orders.unshift(o);store("orders",orders);
+ var url="https://t.me/share/url?url="+encodeURIComponent(DRIVER_GROUP||"https://t.me")+"&text="+encodeURIComponent(text(o));
+ window.open(url,"_blank");toast("Buyurtma qabul qilindi ✅");
+};
+function render(){return render2()}function render_old(){
+ var h="";orders.forEach(function(o){
+  h+='<div class="card ord"><div class="top"><b>'+o.from+' → '+o.to+'</b><span class="price">'+Number(o.price).toLocaleString("uz")+'</span></div>'+
+  '<div class="meta"><span>📅 '+o.date+'</span><span>🕒 '+o.time+'</span><span>👥 '+o.seats+'</span><span>👤 '+esc(o.name)+'</span></div>'+
+  (o.note?'<div class="meta">📝 '+esc(o.note)+'</div>':'')+
+  '<div class="acts">'+mapBtn(o)+'<a class="call" href="tel:'+esc(o.phone)+'">📞 Qo‘ng‘iroq</a><button class="take" data-p="'+esc(o.phone)+'">Olaman</button></div></div>'});
+ $("list").innerHTML=h||'<div class="empty">Hozircha buyurtmalar yo‘q</div>';
+}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+$("list").onclick=function(e){if(e.target.classList.contains("take")){return takeOrder(e.target.dataset.i);e.target.textContent="Olindi ✓";e.target.disabled=true;toast("Buyurtma sizga biriktirildi")}};
+</script>
+</body>
+</html>
